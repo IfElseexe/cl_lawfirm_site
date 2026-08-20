@@ -29,6 +29,24 @@ export const firm = {
     country: "[PLACEHOLDER] Country",
   },
 
+  // ── Social ────────────────────────────────────────────────
+  // Remove any the firm does not use — the bar hides empty entries.
+  social: {
+    facebook: "",
+    twitter: "",
+    linkedin: "[PLACEHOLDER] https://linkedin.com/company/...",
+  },
+
+  // ── Hero ──────────────────────────────────────────────────
+  hero: {
+    eyebrow: "[PLACEHOLDER] Practice area or location line",
+    headline: "Reputation. Respect. Results.",
+    subhead:
+      "[PLACEHOLDER] Two sentences on who the firm acts for and what outcome the reader can expect. Written to the person deciding whether to pick up the phone.",
+    // Drop a photograph at public/images/hero.jpg to replace the gradient.
+    image: "/images/hero.jpg",
+  },
+
   // ── SEO ───────────────────────────────────────────────────
   // Update to the real domain once Vercel is connected.
   siteUrl: "https://cl-lawfirm-site.vercel.app",
@@ -179,3 +197,42 @@ export const principles = [
     body: "[PLACEHOLDER] The lawyer you meet is the lawyer who handles the file.",
   },
 ];
+
+// ── Testimonials ────────────────────────────────────────────
+// Use real, attributable client feedback only. Many jurisdictions
+// require consent before publishing a client's name.
+export type Testimonial = {
+  quote: string;
+  author: string;
+  matter: string;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "[PLACEHOLDER] A real client's words, lightly edited for length only. Specific beats effusive.",
+    author: "[PLACEHOLDER] Client name or initials",
+    matter: "[PLACEHOLDER] Commercial dispute",
+  },
+  {
+    quote: "[PLACEHOLDER] Second testimonial.",
+    author: "[PLACEHOLDER] Client name or initials",
+    matter: "[PLACEHOLDER] Property acquisition",
+  },
+  {
+    quote: "[PLACEHOLDER] Third testimonial.",
+    author: "[PLACEHOLDER] Client name or initials",
+    matter: "[PLACEHOLDER] Employment matter",
+  },
+];
+
+/**
+ * ── Press mentions ─────────────────────────────────────────
+ *  LEAVE THIS EMPTY unless the firm has genuinely been covered
+ *  by the outlet. Displaying press logos without real coverage
+ *  is false advertising, and for a law firm it is a bar
+ *  disciplinary risk — not merely a marketing exaggeration.
+ *
+ *  The "As seen in" bar renders only when this array has entries.
+ */
+export const pressMentions: { outlet: string; url: string }[] = [];

@@ -6,7 +6,7 @@ import { practiceAreas } from "@/content/firm";
 type Status = "idle" | "sending" | "sent" | "error";
 
 const field =
-  "mt-2 w-full border border-rule bg-bone px-3 py-2.5 text-sm outline-none transition-colors focus:border-oxblood";
+  "mt-2 w-full border border-rule bg-white px-3 py-2.5 text-sm outline-none transition-colors focus:border-gold";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -40,7 +40,7 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rule-top pt-8">
+      <div className="border-t border-rule pt-8">
         <p className="eyebrow">Received</p>
         <p className="mt-4 max-w-reading font-display text-2xl leading-snug">
           Thank you. We have your enquiry and will respond within one business day.
@@ -105,13 +105,13 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="bg-ink px-6 py-3 text-sm text-bone transition-colors hover:bg-oxblood disabled:opacity-50"
+        className="btn-gold disabled:opacity-50"
       >
         {status === "sending" ? "Sending…" : "Send enquiry"}
       </button>
 
       {status === "error" && (
-        <p role="alert" className="text-sm text-oxblood">
+        <p role="alert" className="text-sm text-gold">
           {error} You can also email us directly.
         </p>
       )}

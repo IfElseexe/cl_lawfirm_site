@@ -1,99 +1,157 @@
 import Link from "next/link";
-import { firm, practiceAreas, principles } from "@/content/firm";
+import { firm, practiceAreas, principles, attorneys } from "@/content/firm";
+import Hero from "@/components/Hero";
+import PressBar from "@/components/PressBar";
+import SectionHeading from "@/components/SectionHeading";
+import Testimonials from "@/components/Testimonials";
+import Photo from "@/components/Photo";
 
 export default function Home() {
   return (
     <>
-      {/* ── Hero: the thesis, set as a legal citation ────────── */}
-      <section className="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pt-32">
-        <p className="eyebrow">
-          {firm.address.city} · Est. {firm.founded}
-        </p>
-        <h1 className="mt-6 max-w-4xl font-display text-4xl font-light leading-[1.1] tracking-tight sm:text-6xl md:text-7xl">
-          {firm.tagline}
-        </h1>
-        <p className="mt-8 max-w-reading text-lg leading-relaxed text-slate">
-          {firm.metaDescription}
-        </p>
-        <div className="mt-10 flex flex-wrap gap-4">
-          <Link
-            href="/contact"
-            className="bg-ink px-6 py-3 text-sm text-bone transition-colors hover:bg-oxblood"
-          >
-            Request a consultation
-          </Link>
-          <Link
-            href="/practice-areas"
-            className="border border-ink px-6 py-3 text-sm transition-colors hover:bg-ink hover:text-bone"
-          >
-            How we can help
-          </Link>
+      <Hero />
+      <PressBar />
+
+      {/* ── Introduction: image band, text band ──────────────── */}
+      <section className="py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+          <Photo src="/images/office.jpg" className="aspect-[4/5] w-full" />
+          <div>
+            <SectionHeading
+              eyebrow={`Established ${firm.founded}`}
+              title={`A firm built for the decisions that matter`}
+              intro="[PLACEHOLDER] Two or three sentences introducing the firm. What it does, who it acts for, and why a client should trust it with something consequential."
+            />
+            <dl className="mt-12 grid grid-cols-2 gap-8 border-t border-rule pt-8">
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-widest text-slate">
+                  Practice areas
+                </dt>
+                <dd className="mt-2 font-display text-4xl font-light">
+                  {practiceAreas.length}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-widest text-slate">
+                  Attorneys
+                </dt>
+                <dd className="mt-2 font-display text-4xl font-light">
+                  {attorneys.length}
+                </dd>
+              </div>
+            </dl>
+            <Link href="/about" className="btn-dark mt-10">
+              About the firm
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ── Practice areas as a table of authorities ─────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="rule-top pt-8">
-          <p className="eyebrow">Table of authorities</p>
-          <h2 className="mt-3 font-display text-3xl font-light">Practice areas</h2>
-        </div>
-
-        <ul className="mt-10">
-          {practiceAreas.map((area, i) => (
-            <li key={area.slug}>
+      {/* ── Practice areas ───────────────────────────────────── */}
+      <section className="bg-stone py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="Practice areas"
+            title="How we can help"
+            align="center"
+          />
+          <div className="mt-16 grid gap-px bg-rule sm:grid-cols-2 lg:grid-cols-4">
+            {practiceAreas.map((area) => (
               <Link
+                key={area.slug}
                 href={`/practice-areas/${area.slug}`}
-                className="group grid grid-cols-[3rem_1fr] items-baseline gap-4 border-b border-rule py-6 transition-colors hover:bg-bone sm:grid-cols-[4rem_1fr_auto] sm:gap-8"
+                className="group bg-bone p-8 transition-colors hover:bg-white"
               >
-                <span className="font-mono text-sm text-oxblood">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span>
-                  <span className="font-display text-2xl transition-colors group-hover:text-oxblood">
-                    {area.title}
-                  </span>
-                  <span className="mt-1 block max-w-reading text-sm text-slate">
-                    {area.summary}
-                  </span>
-                </span>
-                <span className="hidden font-mono text-sm text-slate group-hover:text-oxblood sm:block">
-                  →
+                <Photo src={`/images/practice-${area.slug}.jpg`} className="mb-6 aspect-[3/2] w-full" zoomOnHover />
+                <h3 className="font-display text-xl transition-colors group-hover:text-gold">
+                  {area.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate">
+                  {area.summary}
+                </p>
+                <span className="mt-5 inline-block font-mono text-xs text-gold">
+                  Learn more →
                 </span>
               </Link>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* ── Principles, using real section markers ───────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="rule-top pt-8">
-          <p className="eyebrow">How we work</p>
-        </div>
-        <div className="mt-10 grid gap-10 md:grid-cols-3">
-          {principles.map((p) => (
-            <div key={p.marker}>
-              <p className="font-mono text-sm text-oxblood">{p.marker}</p>
-              <h3 className="mt-3 font-display text-xl">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate">{p.body}</p>
+      {/* ── Approach: reversed band ──────────────────────────── */}
+      <section className="py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+          <div className="order-2 lg:order-1">
+            <SectionHeading eyebrow="How we work" title="Our approach" />
+            <div className="mt-10 space-y-8">
+              {principles.map((p) => (
+                <div key={p.marker} className="border-l-2 border-gold pl-6">
+                  <h3 className="font-display text-xl">{p.title}</h3>
+                  <p className="mt-2 leading-relaxed text-slate">{p.body}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <Photo src="/images/approach.jpg" className="order-1 aspect-[4/5] w-full lg:order-2" />
         </div>
       </section>
 
-      {/* ── Closing call to action ───────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="bg-ink px-8 py-16 text-bone md:px-16">
-          <p className="eyebrow !text-bone/60">Next step</p>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl font-light leading-tight md:text-4xl">
-            Tell us what you are dealing with. We will tell you whether we can help.
-          </h2>
-          <Link
-            href="/contact"
-            className="mt-8 inline-block border border-bone px-6 py-3 text-sm transition-colors hover:bg-bone hover:text-ink"
-          >
-            Start the conversation
-          </Link>
+      {/* ── Attorneys preview ────────────────────────────────── */}
+      <section className="bg-stone py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="Our team"
+            title="The people who will handle your matter"
+            align="center"
+          />
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {attorneys.slice(0, 3).map((att) => (
+              <Link key={att.slug} href={`/attorneys/${att.slug}`} className="group">
+                <Photo src={`/images/attorney-${att.slug}.jpg`} className="aspect-[3/4] w-full" zoomOnHover />
+                <h3 className="mt-5 font-display text-xl transition-colors group-hover:text-gold">
+                  {att.name}
+                </h3>
+                <p className="font-mono text-xs uppercase tracking-widest text-gold">
+                  {att.role}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-14 text-center">
+            <Link href="/attorneys" className="btn-dark">
+              Meet the full team
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Testimonials />
+
+      {/* ── Closing CTA ──────────────────────────────────────── */}
+      <section className="bg-gold py-20">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 text-center lg:flex-row lg:text-left">
+          <div>
+            <h2 className="font-display text-3xl font-light leading-tight text-white sm:text-4xl">
+              Tell us what you are dealing with.
+            </h2>
+            <p className="mt-3 text-white/85">
+              We respond within one business day.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center bg-charcoal px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-ink"
+            >
+              Free consultation
+            </Link>
+            <a
+              href={`tel:${firm.phone.replace(/[^0-9+]/g, "")}`}
+              className="inline-flex items-center border border-white px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-white hover:text-gold"
+            >
+              {firm.phone}
+            </a>
+          </div>
         </div>
       </section>
     </>

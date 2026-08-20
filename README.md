@@ -51,12 +51,28 @@ npm run build    # production build
 
 ## Design notes
 
-Palette is oxblood, bone, and ink — drawn from bound law reports rather than the
-usual navy-and-gold convention.
+Palette is gold, charcoal, and bone. Layout follows a full-bleed photographic
+hero, alternating image/text bands, card grids, and a testimonials block.
 
-The structural device throughout is legal citation typography: section markers
-(§), monospace numerals, and small-caps eyebrows. These encode real structure —
-practice area services are numbered because they are enumerable, and the homepage
-presents them as a table of authorities.
+Typefaces: Newsreader (display), IBM Plex Sans (body), IBM Plex Mono (labels).
 
-Typefaces: Newsreader (display), IBM Plex Sans (body), IBM Plex Mono (citations).
+### Images
+
+Photographs go in `public/images/` — see the README there for filenames and
+sizes. Missing files fall back to a gradient placeholder, so the site looks
+intact before photography arrives.
+
+### Two things deliberately left out
+
+**Press logos.** The reference design carried an "As seen in" bar with CNN,
+NBC, CBS, Forbes and others. Those are trademarks, and displaying them without
+genuine coverage is false advertising — for a law firm that is a bar
+disciplinary risk, not just a marketing exaggeration. `pressMentions` in
+`src/content/firm.ts` is empty and the bar does not render until it is filled
+with real, linkable coverage.
+
+**Results claims.** Phrases like "recovering millions every year" trigger
+mandatory disclaimer requirements in most jurisdictions and are restricted
+outright in some. If the client wants results messaging, confirm the required
+wording with their bar association first and make sure the figures are
+verifiable.

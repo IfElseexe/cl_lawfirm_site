@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { attorneys, practiceAreas } from "@/content/firm";
+import PageHeader from "@/components/PageHeader";
+import Photo from "@/components/Photo";
 
 export function generateStaticParams() {
   return attorneys.map((a) => ({ slug: a.slug }));
@@ -41,18 +43,17 @@ export default function AttorneyPage({
   const areas = practiceAreas.filter((p) => att.practiceAreas.includes(p.slug));
 
   return (
-    <article className="mx-auto max-w-6xl px-6 py-20">
-      <Link href="/attorneys" className="font-mono text-xs text-oxblood">
+    <>
+      <PageHeader eyebrow={att.role} title={att.name} />
+      <article className="mx-auto max-w-7xl px-6 py-20">
+      <Link href="/attorneys" className="font-mono text-xs text-gold">
         ← All attorneys
       </Link>
 
-      <div className="mt-8 grid gap-16 md:grid-cols-[2fr_1fr]">
+      <div className="mt-12 grid gap-16 md:grid-cols-[1fr_2fr]">
+        <Photo src={`/images/attorney-${att.slug}.jpg`} className="aspect-[3/4] w-full" />
         <div>
-          <p className="eyebrow">{att.role}</p>
-          <h1 className="mt-4 font-display text-4xl font-light md:text-5xl">
-            {att.name}
-          </h1>
-          <p className="mt-8 max-w-reading text-lg leading-relaxed text-slate">
+          <p className="max-w-reading text-lg leading-relaxed text-slate">
             {att.bio}
           </p>
 
@@ -64,7 +65,7 @@ export default function AttorneyPage({
                   <Link
                     key={a.slug}
                     href={`/practice-areas/${a.slug}`}
-                    className="border border-rule px-3 py-1.5 text-sm hover:border-oxblood hover:text-oxblood"
+                    className="border border-rule px-3 py-1.5 text-sm hover:border-gold hover:text-gold"
                   >
                     {a.title}
                   </Link>
@@ -74,21 +75,23 @@ export default function AttorneyPage({
           )}
         </div>
 
-        <aside className="space-y-8 rule-top pt-8 md:border-t-0 md:pt-0">
+      </div>
+
+      <div className="mt-16 grid gap-12 border-t border-rule pt-12 sm:grid-cols-2 lg:grid-cols-4">
           <DetailList label="Admissions" items={[...att.admissions]} />
           <DetailList label="Education" items={[...att.education]} />
           <DetailList label="Languages" items={[...att.languages]} />
-          <div>
+      <div>
             <p className="eyebrow">Contact</p>
             <a
               href={`mailto:${att.email}`}
-              className="mt-3 block font-mono text-sm hover:text-oxblood"
+              className="mt-3 block font-mono text-sm hover:text-gold"
             >
               {att.email}
             </a>
           </div>
-        </aside>
       </div>
-    </article>
+      </article>
+    </>
   );
 }

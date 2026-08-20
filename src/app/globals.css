@@ -3,40 +3,50 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-paper text-ink font-sans antialiased;
-  }
-
-  ::selection {
-    @apply bg-oxblood text-bone;
-  }
-
+  html { scroll-behavior: smooth; }
+  body { @apply bg-bone text-ink font-sans antialiased; }
+  ::selection { @apply bg-gold text-white; }
   :focus-visible {
-    outline: 2px solid theme("colors.oxblood");
+    outline: 2px solid theme("colors.gold");
     outline-offset: 3px;
   }
 }
 
 @layer components {
-  /* Citation-style eyebrow — the signature device.
-     Small caps, letterspaced, monospace section marker. */
   .eyebrow {
-    @apply font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-oxblood;
+    @apply font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-gold;
   }
 
-  .rule-top {
-    @apply border-t border-rule;
+  /* Gold rule beneath section headings — the recurring accent. */
+  .heading-rule::after {
+    content: "";
+    @apply mt-5 block h-px w-16 bg-gold;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center bg-gold px-7 py-3.5 text-sm
+           font-medium text-white transition-colors hover:bg-goldLight;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center border border-white/70 px-7 py-3.5
+           text-sm font-medium text-white transition-colors hover:bg-white hover:text-charcoal;
+  }
+
+  .btn-dark {
+    @apply inline-flex items-center justify-center bg-charcoal px-7 py-3.5 text-sm
+           font-medium text-white transition-colors hover:bg-gold;
+  }
+
+  /* Image slot: shows a warm gradient until a real photograph is dropped in. */
+  .photo-slot {
+    @apply relative overflow-hidden bg-stone;
+    background-image: linear-gradient(135deg, #3A3D42 0%, #5A6068 50%, #2B2D30 100%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;

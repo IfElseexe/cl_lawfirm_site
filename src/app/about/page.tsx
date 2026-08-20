@@ -1,45 +1,54 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { firm, principles } from "@/content/firm";
+import PageHeader from "@/components/PageHeader";
+import SectionHeading from "@/components/SectionHeading";
+import Photo from "@/components/Photo";
 
 export const metadata: Metadata = { title: "About" };
 
 export default function AboutPage() {
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20">
-      <p className="eyebrow">About</p>
-      <h1 className="mt-4 max-w-3xl font-display text-4xl font-light leading-tight md:text-5xl">
-        {firm.name}
-      </h1>
+    <>
+      <PageHeader eyebrow="About" title={firm.name} intro={firm.tagline} />
 
-      <div className="mt-10 max-w-reading space-y-6 text-lg leading-relaxed text-slate">
-        <p>
-          [PLACEHOLDER] Open with the firm&rsquo;s origin and the conviction behind
-          it. What did the founders think was missing from the way legal services
-          were being delivered? Be specific — this paragraph is what separates the
-          firm from every other firm in {firm.address.city}.
-        </p>
-        <p>
-          [PLACEHOLDER] Second paragraph: who the firm serves today and what kind
-          of work it takes on. Concrete examples land harder than adjectives.
-        </p>
-      </div>
-
-      <div className="mt-20">
-        <div className="rule-top pt-8">
-          <p className="eyebrow">Principles</p>
+      <section className="py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+          <Photo src="/images/office.jpg" className="aspect-[4/5] w-full" />
+          <div className="max-w-reading space-y-6 leading-relaxed text-slate">
+            <p>
+              [PLACEHOLDER] Open with the firm&rsquo;s origin and the conviction
+              behind it. What did the founders think was missing from the way
+              legal services were being delivered? Be specific — this paragraph is
+              what separates the firm from every other firm in {firm.address.city}.
+            </p>
+            <p>
+              [PLACEHOLDER] Second paragraph: who the firm serves today and what
+              kind of work it takes on. Concrete examples land harder than
+              adjectives.
+            </p>
+          </div>
         </div>
-        <div className="mt-10 space-y-10">
-          {principles.map((p) => (
-            <div key={p.marker} className="grid gap-3 sm:grid-cols-[5rem_1fr] sm:gap-8">
-              <p className="font-mono text-sm text-oxblood">{p.marker}</p>
-              <div className="max-w-reading">
-                <h2 className="font-display text-2xl">{p.title}</h2>
-                <p className="mt-2 leading-relaxed text-slate">{p.body}</p>
+      </section>
+
+      <section className="bg-stone py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading eyebrow="How we work" title="Our principles" align="center" />
+          <div className="mt-14 grid gap-10 md:grid-cols-3">
+            {principles.map((p) => (
+              <div key={p.marker} className="border-t-2 border-gold pt-6">
+                <h2 className="font-display text-xl">{p.title}</h2>
+                <p className="mt-3 leading-relaxed text-slate">{p.body}</p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="mt-14 text-center">
+            <Link href="/contact" className="btn-dark">
+              Request a consultation
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
